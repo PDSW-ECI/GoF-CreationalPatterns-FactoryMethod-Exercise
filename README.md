@@ -2,7 +2,7 @@
 
 ###Arquitecturas de Software - ARSW
 
-##Taller – Principio de Inversión de dependencias, Contenedores Livianos e Inyección de dependencias.
+##Taller – Principio de Inversión de dependencias, Inversión de Control, Contenedores Livianos e Inyección de dependencias.
 
 
 
@@ -11,9 +11,9 @@ Entregables:
 -   Ejercicio básico, y un avance del ejercicio principal: antes de
     terminar la clase.
 
--   Nueva versión del diseño: Próximo martes, en clase (impreso).
+-   Nueva versión del diseño: Próximo martes, en clase (impreso o digital).
 
--   Solución completa: Próximo Jueves, antes del siguiente laboratorio.
+-   Solución completa: Próximo Miércoles, antes del siguiente laboratorio.
 
 Parte I. Ejercicio básico.
 
@@ -120,96 +120,53 @@ a:
 
 Ejercicio.
 
-Se le ha pedido que revise la aplicación y haga con la misma un
-ejericicio de ‘refactoring’, ya que ésta claramente no considera una
-arquitectura por capas, lo que dificultará en el futuro el mantenimiento
-de la misma. En particular se le ha pedido.
+Se le ha pedido que revise la aplicación y haga con la misma un ejericicio de ‘refactoring’, ya que ésta claramente no considera una arquitectura por capas, lo que dificultará en el futuro el mantenimiento de la misma. En particular se le ha pedido. 
 
-* Ajustar la aplicación para 
+* Ajustar la interfaz de la aplicación para que el usuario pueda escoger el idioma en el cual quiere se hagan las correcciones.
 
 * Rediseñar la aplicación de manera que en la misma se puedan identificar claramente capas de presentación, lógica y persistencia. Utilice las [convenciones de Java para el nombramiento de paquetes](http://www.oracle.com/technetwork/java/codeconventions-135099.html) para que las clases correspondientes a cada capa queden en paquetes separados.
 
 * Hacer los ajustes que hagan falta para que, además del mecanismo de persistencia mediante serialización, sea fácil incorporar nuevos mecanismos (en caso de que la serialización resulte obsoleta o ineficiente). Por ahora, se quere incorporar un esquema alternativo de persistencia basado en el almacenamiento del documento como texto plano.
 
-* Hacer los ajustes que hagan falta para hacer fácil la adaptación de nuevos mecanismos de corrección automática de errores tipográficos/ortográficos. Por ahora se espera que se pueda elegir entre el existente (con los datos estáticos), y uno que usted
+* Hacer los ajustes que hagan falta para hacer fácil la adaptación de nuevos mecanismos de corrección automática de errores tipográficos/ortográficos. Por ahora se espera que se pueda elegir entre el existente (que hace uso de datos estáticos), y uno alternativo que haga uso de una base de datos -en línea- de errores tipográficos (los cuales son contínuamente actualizados):
 
-http://190.24.150.86/hcadavid/lang/eng_misspellings.txt
-http://190.24.150.86/hcadavid/lang/spa_misspellings.txt
+	* Inglés:
+	http://190.24.150.86/hcadavid/lang/eng_misspellings.txt
+	
+	* Español:
+	http://190.24.150.86/hcadavid/lang/spa_misspellings.txt
+
+	Para este último no olvide tener en cuenta que, como es necesario leer una gran cantidad de datos, para evitar problemas de latencia ésto se debería hacer una única vez, y luego almacenarlos en memoria en una estructura de datos que tenga una complejidad temporal logarítmica para la búsqueda de elementos.
 
 
-    debe definir, que hace uso de una base de datos NoSQL de mongoDB,
-    accesible en la URL:
-    mongodb://test:test@ds031631.mongolab.com:31631/documents . Esta
-    base de datos cuenta con una colección llamada ‘commontypos’, que a
-    su vez cuenta con un documento con las claves (en los fuentes hay
-    disponible un ejemplo):
+Con lo anterior, se quiere que la aplicación se pueda configurar para funcionar bajo dos esquemas:
 
-    -   “words”: la lista de palabras que se consideran válidas.
+-   Offline: usando el conjunto de datos de errores ‘estático’.
 
-    -   Una clave por cada palabra errónea comúnmente usada, como
-        ‘pocibilidad’ u ‘hoal’(hola).
+-   Online: usando las palabras disponibles en las base de datos en línea.
 
-> Con lo anterior, se quiere que la aplicación pueda funcionar bajo dos
-> esquemas:
+Por otro lado, para el segundo esquema anterior (online), se quiere poder configurar una de dos variantes de cómo se sustituyen los errores:
 
--   Offline: usando el conjunto de datos ‘estático’.
+-   Sustitución limpia: cuando se ingresa una palabra equivocada que tenga más de una opción correcta en la base de datos, se sustituye por la primera.
+-   Sustitución invasiva: cuando se ingresa una palabra equivocada que tenga más de una opción correcta en la base de datos, se sustituye por una una cadena que alerte al escritor sobre las diferentes opciones. Por ejemplo, si se escribe *archeaologist*, en el texto se pondrá *[archeologist/archaeologist]*
 
--   Online: usando las palabras disponibles en la base de datos NoSQL,
-    la cual está en permanente actualización.
+####Tenga también en cuenta:
 
-Por otro lado, para el segundo esquema anterior (online), se quiere
-tener dos variantes:
+* Parámetros como las rutas donde por defecto se tendrán los documents, URLs de servidores y demás, NO deben estar ‘quemadas’ en el código. En lugar de esto, las mismas deberían ser inyectadas.
+* Para lograr un código 'limpio', se debe evitar el hacer uso del contexto de Spring en muchos puntos del programa. Lo ideal es tener un único punto de creación (getBean), y que sólo con éste se desencadenen automáticamente todas las inyecciones de dependencias requeridas. 
 
--   Sustitución estándar (sencillamente reemplaza la palabra si la misma
-    tiene una ocurrencia en la base de datos).
 
--   Sustitución verificada (sólo reemplaza si la palabra, además de
-    tener una ocurrencia en la base de datos, no existe en la lista
-    de palabras).
+##Criterios de evaluación
 
-<!-- -->
-
--   Se debe tener también en cuenta que parámetros como rutas de
-    archivos, URLs y demás, NO deben estar ‘quemadas’ en el código. En
-    lugar de esto, las mismas deberían ser inyectadas.
-
-**Nota.**
-
-Este es el conjunto mínimo de datos disponible en la base de datos
-MongoDB, para tener en cuenta para las pruebas:
-
-{
-
-"\_id": {
-
-"\$oid": "54c1152403640685ba63d670"
-
-},
-
-"pocibilidad": "posibilidad",
-
-"poxibilidad": "posibilidad",
-
-"hoal": "hola",
-
-"yola": "hola",
-
-"jola": "hola",
-
-"hol": "hola",
-
-"vuenas": "buenas",
-
-"nuenas": "buenas",
-
-"huenas": "buenas",
-
-"pocible": "posible",
-
-"words": \[
-
-"jola,nuenas"
-
-\]
-
-}
+1. Funcionalidad. La aplicación debe poderse configurar para
+	* Usar un formato basado en cadenas serializadas, o uno basado en texto plano.
+	* Funcionar con la base de datos de errores local.
+	* Funcionar con las bases de datos de errores en línea, y cuando éste sea el caso, definir si se hará una sustitución limpia o invasiva.
+2. La solución debe quedar abierta para extensión y cerrada para modificación. Es decir, debe permitir (sólo creando nuevos Beans y ajustando la inyección de dependencias donde corresponda):
+	* Agregar nuevos esquemas de persistencia.
+	* Agregar nuevas fuentes de datos de errores.
+	* Agregar nuevas estrategias de sustitución de errores  (sólo cuando se haga uso de las fuentes de datos en línea).
+	
+3. Diseño de la solución:
+	* El diseño debe permitir un único punto de creación de Beans.
+	* El diseño debe considerar que las estrategias de sustitución sólo se tendrán en cuenta cuando se haga uso de las bases de datos de errores en línea.
