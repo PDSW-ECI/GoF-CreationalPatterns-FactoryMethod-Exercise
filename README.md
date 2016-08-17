@@ -90,31 +90,15 @@ Parte I. Ejercicio básico.
 
 ##Parte II.
 
-En este repositorio se encuentra una versión muy rudimentaria del editor de texto *Guord for dummies*. Este editor de texto, como su nombre lo indica, está
-orientado a personas inexpertas en el uso de tecnología, y cuenta como
-principal elemento el no requerir interactuar con un sistema de
-archivos.
+En este repositorio se encuentra una versión muy rudimentaria del editor de texto *Guord for dummies*. Este editor de texto, como su nombre lo indica, está orientado a personas inexpertas en el uso de tecnología, y cuenta como principal elemento el no requerir interactuar con un sistema de archivos (todos los documentos se guardan en una ruta estándar).
 
-Actualmente la aplicación hace uso del API de serialización de Java para
-hacer persistentes y reconstruir los documentos (en una ruta estándar
-desconocida por el usuario), y de la clase File para obtener el listado
-de los documentos creados en la misma (para cuando el usuario solicite
-abrir uno de los archivos).
+Actualmente la aplicación hace uso del API de serialización de Java para hacer persistentes y reconstruir los documentos (en una ruta estándar desconocida por el usuario), y de la clase File para obtener el listado de los documentos creados en la misma (para cuando el usuario solicite abrir uno de los archivos).
 
-Cuando el usuario ha digitado su texto, y al seleccionar la opción de
-guardar, la aplicación sólo le pregunta el nombre del documento, mas no
-en qué ruta lo hará. La aplicación se encarga de mantener oculto este
-detalle, y simplemente, cuando el usuario selecciona la opción de
-‘abrir’, ésta le muestra el listado de documentos previamente guardados.
+Cuando el usuario ha digitado su texto, y al seleccionar la opción de guardar, la aplicación sólo le pregunta el nombre del documento, mas no en qué ruta lo hará. La aplicación se encarga de mantener oculto este detalle, y simplemente, cuando el usuario selecciona la opción de ‘abrir’, ésta le muestra el listado de documentos previamente guardados.
 
-Como todo buen editor de texto, esta herramienta busca integrar algunos
-recursos léxicos para asistir en la auto-corrección de errores
-tipográficos u ortográficos. Por ahora, la aplicación hace uso de la
-clase TypoSuggestionsEngine, la cual contiene un conjunto estático de
-equivalencias de palabras.
+Como todo buen editor de texto, esta herramienta busca integrar algunos recursos léxicos para asistir en la auto-corrección de errores tipográficos u ortográficos. Por ahora, la aplicación hace uso de la clase TypoSuggestionsEngine, la cual contiene un conjunto estático de equivalencias de palabras.
 
-El modelo de clases de la aplicación, por lo tanto, por ahora se reduce
-a:
+El modelo de clases de la aplicación, por lo tanto, por ahora se reduce a:
 
 ![](./img/media/image9.png)
 
