@@ -29,6 +29,8 @@ public class GuordMainFrame extends javax.swing.JFrame {
     private TypoSuggestionsEngine tse=new TypoSuggestionsEngine();
     
     private String defaultPath="/tmp/";
+    
+    private Languages defaultLanguage=Languages.ENGLISH;
     /**
      * Creates new form GuordMainFrame
      */
@@ -50,8 +52,8 @@ public class GuordMainFrame extends javax.swing.JFrame {
 				}
 				else{
 					word=cnt.substring(lastspace+1,pos);	
-				}
-				String replacement=tse.check(word);
+				}                                
+				String replacement=tse.check(word,defaultLanguage);
 				
 				if (replacement!=null){
 					final String _word=word;
@@ -172,8 +174,7 @@ public class GuordMainFrame extends javax.swing.JFrame {
             public boolean accept(File dir, String name) {
                 return (name.endsWith(".guord"));
             }
-        });
-        System.out.println(choices[0]);
+        });        
         if (choices.length>0){
             name = (String) JOptionPane.showInputDialog(null, "Choose document...",
             "Choose document", JOptionPane.QUESTION_MESSAGE, null, // Use
@@ -181,7 +182,7 @@ public class GuordMainFrame extends javax.swing.JFrame {
             choices[0]); // Initial choice            
         }
         else{
-            JOptionPane.showInputDialog(null, "No documents found");
+            JOptionPane.showMessageDialog(null, "No documents found");
         }
         
         if (name!=null){

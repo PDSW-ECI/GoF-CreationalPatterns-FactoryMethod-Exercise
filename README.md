@@ -1,13 +1,10 @@
-Escuela Colombiana de Ingeniería
+##Escuela Colombiana de Ingeniería
 
-Arquitecturas de Software - ARSW
+###Arquitecturas de Software - ARSW
 
-Prof. Héctor Fabio Cadavid R.
+##Taller – Principio de Inversión de dependencias, Contenedores Livianos e Inyección de dependencias.
 
-Taller – Principio de Inversión de dependencias, Contenedores Livianos e
-Inyección de dependencias.
 
-**Manejador de órdenes de un restaurante.**
 
 Entregables:
 
@@ -26,53 +23,44 @@ Parte I. Ejercicio básico.
 
 2.  Agregue como dependencia de Maven el artefacto ‘spring-context’:
 
--   GROUP-ID:org.spring-framework
+	-   GROUP-ID:org.spring-framework
+	-   ARTIFACT-ID: spring-context
+	-   VERSION: 4.2.4-RELEASE
 
--   ARTIFACT-ID: spring-context
+	Nota: Con Netbeans puede usar el asistente de búsqueda del repositorio central de Maven:
 
--   VERSION: 4.1.4-RELEASE
-
-> Con Netbeans puede usar el asistente de búsqueda del repositorio
-> central de Maven:
-
-  ![](./img/media/image1.png){width="2.8444444444444446in" height="2.073018372703412in"}   ![](./img/media/image2.png){width="3.5in" height="3.434607392825897in"}
-  ---------------------------------------------------------------------------------------- -------------------------------------------------------------------------
-
-1.  Verifique que esta nueva dependencia, junto con sus respectivas
+	![](./img/media/image1.png)
+	![](./img/media/image2.png)
+  
+3.  Verifique que esta nueva dependencia, junto con sus respectivas
     dependencias, se hayan añadido y descargado:
 
-    ![](./img/media/image3.png){width="2.9034722222222222in"
-    height="1.4655719597550305in"}
+    ![](./img/media/image3.png)
 
-2.  Cree un nuevo archivo de configuración de Spring. Aunque el nombre
+4.  Cree un nuevo archivo de configuración de Spring. Aunque el nombre
     puede ser cualquiera, por convención este archivo suele
     llamarse ‘applicationContext.xml’. Como se está usando Maven, dicho
     archivo debe ir en la ruta que por convención se usa para los
     archivos de configuración:
 
-    ![](./img/media/image4.png){width="4.1691951006124235in"
-    height="1.9020614610673665in"}
-
-    ![](./img/media/image5.png){width="3.75in"
-    height="1.480457130358705in"}
-
-3.  En este paso se le pedirá indicar qué nombres de
+    ![](./img/media/image4.png)
+    ![](./img/media/image5.png)
+    
+5.  En este paso se le pedirá indicar qué nombres de
     espacio (namespaces) XML se incluirán en el archivo
     de configuración. Como por ahora sólo se usarán los elementos
     básicos, no es necesario incluir ninguno:
 
-    ![](./img/media/image6.png){width="4.249373359580052in"
-    height="1.828409886264217in"}
+    ![](./img/media/image6.png)
 
-4.  Edite el archivo de configuración de Spring. Primero, defina dos
+6.  Edite el archivo de configuración de Spring. Primero, defina dos
     beans: uno correspondiente al corrector ortográfico en español, y
     otro al corrector ortográfico en inglés. Para esto, use las opciones
-    de autocompletar para los tags y para la selección de la clase:
+    de autocompletar para los tags (Ctrl+espacio) y para la selección de la clase:
 
-    ![](./img/media/image7.png){width="6.0in"
-    height="0.7229877515310587in"}
+    ![](./img/media/image7.png)
 
-5.  En el mismo archivo agregue un bean correspondiente al
+7.  En el mismo archivo agregue un bean correspondiente al
     corrector gramatical. Este bean, a diferencia de los dos anteriores,
     tiene una dependencia a algo de tipo *SpellChecker* llamada
     ‘sc’ (getSc/setSc) que debe ser inyectada, para lo cual se le agrega
@@ -81,34 +69,28 @@ Parte I. Ejercicio básico.
     inyectará a dicha propiedad. Deje la configuración de manera que se
     use el corrector ortográfico para español.
 
-    ![](./img/media/image8.png){width="6.0in"
-    height="1.8807119422572178in"}
+    ![](./img/media/image8.png)
 
-6.  Haga un programa de prueba, donde se cree una instancia de
+8.  Haga un programa de prueba, donde se cree una instancia de
     GrammarChecker mediante Spring, y se haga uso de la misma.
 
-**public** **static** **void** main(String\[\] args) {
+	```java
+	
+	public static void main(String[] args) {
+		ApplicationContext ac=new ClassPathXmlApplicationContext("applicationContext.xml");
+		GrammarChecker gc=ac.getBean(GrammarChecker.class);
+		System.out.println(gc.check("la la la "));
+	}
+	```
 
-ApplicationContext ac=**new**
-ClassPathXmlApplicationContext("applicationContext.xml");
-
-GrammarChecker gc=ac.getBean(GrammarChecker.**class**);
-
-System.*out*.println(gc.check("la la la "));
-
-}
-
-1.  Modifique el archivo de configuración de Spring para que el Bean
+9.  Modifique el archivo de configuración de Spring para que el Bean
     ‘spellChecker‘ ahora haga uso de la clase SpanishSpellChecker (para
     que a GrammarChecker se le inyecte *EnglishSpellChecker* en lugar de
     *SpanishSpellChecker*. Verifique el nuevo resultado.
 
-Parte II.
+##Parte II.
 
-En el repositorio
-<https://github.com/hectorateci/dip-di-refectoring-exercise.git> se
-encuentra una versión muy rudimentaria del editor de texto ‘*Guord for
-dummies*’. Este editor de texto, como su nombre lo indica, está
+En este repositorio se encuentra una versión muy rudimentaria del editor de texto *Guord for dummies*. Este editor de texto, como su nombre lo indica, está
 orientado a personas inexpertas en el uso de tecnología, y cuenta como
 principal elemento el no requerir interactuar con un sistema de
 archivos.
@@ -134,8 +116,7 @@ equivalencias de palabras.
 El modelo de clases de la aplicación, por lo tanto, por ahora se reduce
 a:
 
-![](./img/media/image9.png){width="3.9869389763779526in"
-height="0.7743274278215223in"}
+![](./img/media/image9.png)
 
 Ejercicio.
 
@@ -144,26 +125,18 @@ ejericicio de ‘refactoring’, ya que ésta claramente no considera una
 arquitectura por capas, lo que dificultará en el futuro el mantenimiento
 de la misma. En particular se le ha pedido.
 
--   Rediseñar la aplicación de manera que en la misma se puedan
-    identificar claramente capas de presentación, lógica y persistencia.
+* Ajustar la aplicación para 
 
--   Hacer los ajustes que hagan falta para que, además del mecanismo de
-    persistencia mediante serialización, sea fácil incorporar nuevos
-    mecanismos (en caso de que la serialización resulte obsoleta
-    o ineficiente). En particular, se quiere que la aplicación pueda
-    configurarse para usar bien sea el mecanismo de serialización, o una
-    base de datos embebida (que es lo que se estila para este tipo de
-    aplicaciones), en donde los documentos se guardarán en tablas en
-    lugar de archivos. (Para esto, se puede usar sqlite
-    <http://en.wikibooks.org/wiki/Java_JDBC_using_SQLite/Connecting>).
-    Tenga en cuenta que con este nuevo esquema, en lugar de tener N
-    archivos, 1 para cada documento, se tendrá uno solo, con la base de
-    datos que contiene las tablas donde estarán los N documentos.
+* Rediseñar la aplicación de manera que en la misma se puedan identificar claramente capas de presentación, lógica y persistencia. Utilice las [convenciones de Java para el nombramiento de paquetes](http://www.oracle.com/technetwork/java/codeconventions-135099.html) para que las clases correspondientes a cada capa queden en paquetes separados.
 
--   Hacer los ajustes que hagan falta para hacer fácil la adaptación de
-    nuevos mecanismos de corrección automática de
-    errores tipográficos/ortográficos. Por ahora se espera que se pueda
-    elegir entre el existente (con los datos estáticos), y uno que usted
+* Hacer los ajustes que hagan falta para que, además del mecanismo de persistencia mediante serialización, sea fácil incorporar nuevos mecanismos (en caso de que la serialización resulte obsoleta o ineficiente). Por ahora, se quere incorporar un esquema alternativo de persistencia basado en el almacenamiento del documento como texto plano.
+
+* Hacer los ajustes que hagan falta para hacer fácil la adaptación de nuevos mecanismos de corrección automática de errores tipográficos/ortográficos. Por ahora se espera que se pueda elegir entre el existente (con los datos estáticos), y uno que usted
+
+http://190.24.150.86/hcadavid/lang/eng_misspellings.txt
+http://190.24.150.86/hcadavid/lang/spa_misspellings.txt
+
+
     debe definir, que hace uso de una base de datos NoSQL de mongoDB,
     accesible en la URL:
     mongodb://test:test@ds031631.mongolab.com:31631/documents . Esta
