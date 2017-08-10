@@ -11,25 +11,12 @@ import java.util.LinkedHashMap;
  *
  * @author dummyProgrammer
  */
-public class TypoSuggestionsEngine {
-
-    private final LinkedHashMap<String, String> spaEquivalencesMap;
+public class TypoCorrector {
+    
     private final LinkedHashMap<String, String> engEquivalencesMap;
     
-    private final LinkedHashMap<Languages, LinkedHashMap<String, String>> langMaps;    
-    private LinkedHashMap<String,String> selectedTyposMap;
     
-    public TypoSuggestionsEngine() {
-        spaEquivalencesMap = new LinkedHashMap<>();
-
-        spaEquivalencesMap.put("hoal", "hola");
-        spaEquivalencesMap.put("yola", "hola");
-        spaEquivalencesMap.put("jola", "hola");
-        spaEquivalencesMap.put("hol", "hola");
-        spaEquivalencesMap.put("vuenas", "buenas");
-        spaEquivalencesMap.put("nuenas", "buenas");
-        spaEquivalencesMap.put("huenas", "buenas");
-        spaEquivalencesMap.put("pocible", "posible");
+    public TypoCorrector() {
 
         engEquivalencesMap = new LinkedHashMap<>();
 
@@ -45,18 +32,7 @@ public class TypoSuggestionsEngine {
         engEquivalencesMap.put("acadmic", "academic");
         engEquivalencesMap.put("accademic", "academic");
 
-        langMaps = new LinkedHashMap<>();
-        langMaps.put(Languages.SPANISH, spaEquivalencesMap);
-        langMaps.put(Languages.ENGLISH, engEquivalencesMap);
         
-        //default languange: English
-        selectedTyposMap = engEquivalencesMap;
-        
-    }
-
-
-    public void setSelectedLanguage(Languages selectedLanguage) {
-        selectedTyposMap=langMaps.get(selectedLanguage);
     }
     
 
@@ -68,9 +44,9 @@ public class TypoSuggestionsEngine {
      * @param lang
      * @return
      */
-    public String check(String word, Languages lang) {
+    public String check(String word) {
 
-        String res = selectedTyposMap.get(word);
+        String res = engEquivalencesMap.get(word);
         if (res == null) {
             return null;
         } else {

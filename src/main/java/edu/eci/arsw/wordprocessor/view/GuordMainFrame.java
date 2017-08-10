@@ -26,11 +26,10 @@ import javax.swing.event.CaretListener;
  */
 public class GuordMainFrame extends javax.swing.JFrame {
 
-    private TypoSuggestionsEngine tse=new TypoSuggestionsEngine();
+    private TypoCorrector tse=new TypoCorrector();
     
     private String defaultPath="/tmp/";
-    
-    private Languages defaultLanguage=Languages.ENGLISH;
+        
     /**
      * Creates new form GuordMainFrame
      */
@@ -53,7 +52,7 @@ public class GuordMainFrame extends javax.swing.JFrame {
 				else{
 					word=cnt.substring(lastspace+1,pos);	
 				}                                
-				String replacement=tse.check(word,defaultLanguage);
+				String replacement=tse.check(word);
 				
 				if (replacement!=null){
 					final String _word=word;
