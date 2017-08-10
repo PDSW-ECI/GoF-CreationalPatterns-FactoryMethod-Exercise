@@ -36,7 +36,7 @@ Se le ha pedido que revise la aplicación y haga con la misma un ejericicio de �
 
 * Hacer los ajustes que hagan falta para que, además del mecanismo de persistencia mediante serialización, sea fácil incorporar nuevos mecanismos (en caso de que la serialización resulte obsoleta o ineficiente). Por ahora, se quere incorporar un esquema alternativo de persistencia basado en el almacenamiento del documento como texto plano.
 
-* Hacer los ajustes que hagan falta para hacer fácil la adaptación de nuevos mecanismos de corrección automática de errores tipográficos/ortográficos. Por ahora se espera que se pueda elegir entre el existente (que hace uso de datos estáticos), y uno alternativo que haga uso de una base de datos -en línea- de errores tipográficos (los cuales son contínuamente actualizados): http://190.24.150.86/hcadavid/lang/eng_misspellings.txt
+* Hacer los ajustes que hagan falta para hacer fácil la adaptación de nuevos mecanismos de corrección automática de errores tipográficos/ortográficos. Por ahora se espera que se pueda elegir entre el existente (que hace uso de datos estáticos), y uno alternativo que haga uso de una base de datos -en línea- de errores tipográficos (los cuales son contínuamente actualizados): http://190.24.150.86/hcadavid/lang/eng_misspellings.txt . Para este último tenga en cuenta que es MUY importante la eficiencia de la implementación, ya que el programa hace una nueva consulta cada vez que se escribe una palabra. No se debería, por ejemplo, leer más de una vez el archivo con las equivalencias, y mantener las mismas en una estructura de datos que permita su consulta con una complejidad temporal promedio de O(1).
 	
 Con lo anterior, se quiere que la aplicación permita:
 
