@@ -14,6 +14,21 @@ __Trabajo individual o en parejas__
 
 **Jueves a las 10:00am**: Ejercicio terminado.
 
+***Instrucciones para Maven y GIT:*** Se requiere Linux.
+* Para descargar la aplicación, desde una terminal, clone el repositorio, y luego abralo con NetBeans:
+
+	```bash
+	git clone https://github.com/PDSW-ECI/GoF-CreationalPatterns-FactoryMethod-Exercise.git
+	```
+* Para compilar, desde el directorio creado con el paso anterior:
+	```bash
+	mvn compile
+	```
+* Para ejecutar:
+	```bash
+	mvn exec:java  -Dexec.mainClass=edu.eci.arsw.wordprocessor.view.GuordMainFrame
+	```
+
 
 
 En este repositorio se encuentra una versión muy rudimentaria del editor de texto *Guord for dummies*. Este editor de texto, como su nombre lo indica, está orientado a personas inexpertas en el uso de tecnología, y cuenta como principal elemento el no requerir interactuar con un sistema de archivos (todos los documentos se guardan en una ruta estándar). Por ahora, sólo soporta el inglés.
@@ -43,6 +58,8 @@ Con lo anterior, se quiere que la aplicación permita:
 1. Agregarle mecanismos alternativos de persistencia de archivos SIN necesidad de modificar el _CORE_ de la aplicación.
 
 2. Agregarle estrategias alternativas alternativas para la corrección de errores tipográficos SIN necesidad de modificar el _CORE_ de la aplicación.
+
+
 
 ### Proceso sugerido:
 
