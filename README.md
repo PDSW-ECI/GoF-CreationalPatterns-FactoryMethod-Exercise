@@ -4,21 +4,17 @@
 
 ## Laboratorio - Patrones Creacionales, Principios SOLID
 
+__Trabajo individual o en parejas__
 
-## Parte I.
+## Entregables:
 
-Revise el proyecto disponible en:
+**Jueves en clase**: Diseño de la nueva aplicación (diagrama de clases + diagrama de paquetes).
 
-https://github.com/PDSW-ECI/GoF-FactoryMethod-ReferenceExample
+**Martes en clase**: Avance + dudas.
 
-Haga una copia local con el comando
-
-```java
-git clone https://github.com/PDSW-ECI/GoF-FactoryMethod-ReferenceExample
-```
+**Jueves a las 10:00am**: Ejercicio terminado.
 
 
-## Parte II.
 
 En este repositorio se encuentra una versión muy rudimentaria del editor de texto *Guord for dummies*. Este editor de texto, como su nombre lo indica, está orientado a personas inexpertas en el uso de tecnología, y cuenta como principal elemento el no requerir interactuar con un sistema de archivos (todos los documentos se guardan en una ruta estándar). Por ahora, sólo soporta el inglés.
 
@@ -34,9 +30,9 @@ El modelo de clases de la aplicación, por lo tanto, por ahora se reduce a:
 
 __Ejercicio.__
 
-Se le ha pedido que revise la aplicación y haga con la misma un ejericicio de ‘refactoring’, ya que ésta claramente no considera una arquitectura por capas, lo que dificultará en el futuro el mantenimiento de la misma. En particular se le ha pedido. 
+Se le ha pedido que revise la aplicación y haga con la misma un ejericicio de ‘refactoring’, ya que ésta claramente no cumple con el metapatrón MVC (Modelo-Vista-Controlador), lo que dificultará en el futuro el mantenimiento de la misma. Por otro lado, se quiere que sea fácil mejorar y mantener ciertas características estratégicas de la herramienta. Para esto, en particular se le ha pedido:
 
-* Rediseñar la aplicación de manera que en la misma se puedan identificar claramente capas de presentación, lógica y persistencia. Utilice las [convenciones de Java para el nombramiento de paquetes](http://www.oracle.com/technetwork/java/codeconventions-135099.html) para que las clases correspondientes a cada capa queden en paquetes separados.
+* Rediseñar la aplicación de manera que en la misma se puedan identificar claramente las clases de presentación, lógica y persistencia. Utilice las [convenciones de Java para el nombramiento de paquetes](http://www.oracle.com/technetwork/java/codeconventions-135099.html) para que las clases correspondientes a cada capa queden en paquetes separados.
 
 * Hacer los ajustes que hagan falta para que, además del mecanismo de persistencia mediante serialización, sea fácil incorporar nuevos mecanismos (en caso de que la serialización resulte obsoleta o ineficiente). Por ahora, se quere incorporar un esquema alternativo de persistencia basado en el almacenamiento del documento como texto plano.
 
@@ -51,17 +47,18 @@ Con lo anterior, se quiere que la aplicación permita:
 ### Proceso sugerido:
 
 1. Proponga un nuevo diseño para la aplicación, donde se tengan clases que encapsulen las operaciones de la aplicación sujetas a eventuales cambios.
-2. Con lo anterior, considere el patrón [Método Fábrica](https://dzone.com/articles/design-patterns-factory), para una segunda versión del diseño. Tip: los productos concretos serán las clases identificadas en el paso 1.
+2. Aplique el principio de [Inversión de dependencias](https://dzone.com/articles/the-dependency-inversion-principle-dip-or-d-in-soi) en la manera de relacionar las clases identificadas anteriormente con el _CORE_ de la aplicación.
+2. Con lo anterior, haga un diseño que adicionalmente considere el patrón [Método Fábrica](https://dzone.com/articles/design-patterns-factory) para el problema de la creación de las clases concretas. Tip: los productos concretos serán las clases identificadas en el paso 1.
 
-3. Usando como referencia [el proyecto indicado inicialmente](https://github.com/PDSW-ECI/GoF-FactoryMethod-ReferenceExample), haga la implementación del diseño planteado.
+3. Use como referencia [uno de los ejemplos de implementación disponibles](https://github.com/PDSW-ECI/GoF-FactoryMethod-ReferenceExample), en donde se plantea también el uso del patrón Singleton (para la creación de la fábrica concreta).
 
 
 ## Criterios de evaluación
 
-1. Funcionalidad. La aplicación debe poderse configurar para
-	* Usar un formato basado en cadenas serializadas, o uno basado en texto plano.
+1. Funcionalidad. La aplicación debe poderse configurar, sin tener que tocar el _CORE_ de la misma, para
+	* Usar un formato de documento basado en objetos String serializadas, o uno basado en texto plano.
 
-2. La solución debe quedar abierta para extensión y cerrada para modificación. Es decir, debe permitir (sólo configurando las fábricas):
+2. La solución debe quedar abierta para extensión y cerrada para modificación. Es decir, debe permitir (sólo configurando el esquema de fábricas):
 	* Agregar nuevos esquemas de persistencia.
 	* Agregar nuevas estrategias de corrección automática.
 	
